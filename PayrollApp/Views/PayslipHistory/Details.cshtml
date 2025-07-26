@@ -1,0 +1,65 @@
+@model PayrollApp.Models.PayslipHistory
+@using System.Text.Json;
+@using PayrollApp.Services;
+
+@{
+    ViewData["Title"] = "Details";
+    var payslipItems = JsonSerializer.Deserialize<List<PayslipItem>>(Model.PayslipItemsJson);
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Payslip History</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GrossSalary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GrossSalary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NetSalary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NetSalary)
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Label</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in payslipItems)
+        {
+            <tr>
+                <td>@item.Code</td>
+                <td>@item.Label</td>
+                <td>@item.Amount.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
